@@ -22,8 +22,8 @@ def cpu_info():
 
 #collect data for plotting cpu-temp //Linux
 def collect_cpu_temp():
-    user_in_interval = int(input("enter intervals in sec: ")) #both tkinter slider for select
-    user_in_time = int(input("enter timescale in min: "))    #both tkinter slider for select
+    user_in_interval = int(input("enter intervals in sec: ")) #tkinter slider for select
+    user_in_time = int(input("enter timescale in min: "))    #tkinter slider for select
     time_count = user_in_time*60/user_in_interval
 
     cpu_temp_counter = 0
