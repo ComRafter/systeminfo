@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 import time
 import platform
+import app
 
 
 def running_system():
@@ -36,16 +37,15 @@ class CpuInfo():
         else:
             "unknown command"
 #imo not relevant
-#    NEXT
-#    number_of_cores = int(CpuInfo("core", True).cpu_core())  => 2
-#    use number of cores for - def plot_cpu_temp_y() open ('/sys/class/thermal/thermal_zone0/temp')
-#    format thermal_zone0 => zone1 then temp for core2
+
+
+
 
 
 def user_input_plot():
     """User Input for plotting: time period(user_in_time*60) x, for y coordinates intervals"""
-    user_in_interval = int(input("enter intervals in sec: ")) #tkinter slider for select
-    user_in_time = int(input("enter timescale in min: "))    #tkinter slider for select
+    user_in_interval = app.interval_scale.get()
+    user_in_time = app.time_scale.get()
     number_of_interval = user_in_time*60/user_in_interval+1
     return int(user_in_interval), int(user_in_time), int(number_of_interval)
 
@@ -56,15 +56,16 @@ def plot_time_x():
     global user_in_time
     global number_of_interval
     user_in_interval, user_in_time, number_of_interval = user_input_plot()
-    plot_time_x = []
+
+    plot_x = []
     x_coordinate_steps = range(0, number_of_interval*user_in_interval, user_in_interval)
     for x in x_coordinate_steps:
-        plot_time_x.append(x)
-    return plot_time_x
+        plot_x.append(x)
+    return plot_x
 
 
 def plot_cpu_temp_y():
-    """y coordinates for the cpu temp"""
+    """y coordinates / cpu temp"""
     plot_temp_y = []
     cpu_temp_counter = 0
     while cpu_temp_counter < number_of_interval :
@@ -79,12 +80,3 @@ def plot_cpu_temp_y():
         else:
             time.sleep(user_in_interval)
     return plot_temp_y
-
-
-def main():
-    plt.plot(plot_time_x(), plot_cpu_temp_y())
-    plt.show()
-
-
-if __name__ == "__main__":
-    main()
